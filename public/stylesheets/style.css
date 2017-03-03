@@ -1,0 +1,18 @@
+body {
+  padding: 0px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.jumbotron{
+	padding-left:50px;
+}
+#bs-example-navbar-collapse-1:target{
+	display: block;
+}
+img{
+	width: 100px;
+}

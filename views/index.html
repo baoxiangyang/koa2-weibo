@@ -1,0 +1,34 @@
+<%- include head.html %>
+<% if(!user){ %>
+	<div class="jumbotron">
+	    <h1>欢迎来到weibo</h1>
+	    <p>weibo 是一个基于Node-Koa2的微博系统</p>
+	    <p>
+	        <a class="btn btn-primary btn-large" href="/login">登录</a>
+		<a class="btn btn-large" href="/reg">立即注册</a>
+	    </p>
+	</div>
+<% }else{ %>
+	<form action="/" method="post" enctype="multipart/form-data" style="text-align:center;" class="well form-inline center">
+		<input type="text" name="post" class="col-sm-8 col-sm-offset-1">
+		<input type="file" name="img" class="col-sm-8 col-sm-offset-1">
+		<button type="submit" style="float:left;margin-left:10px;" class="btn btn-success">
+			<i class="glyphicon glyphicon-comment">发言</i>
+		</button>
+		<div style="clear:both;"></div>
+	</form>
+<% } %>
+<div style="width:90%;margin:0 auto">
+<% data.forEach(function(item){ %>
+<div style="width:30%;float: left;">
+	<p> <%= item.username %> 说:</p>
+	<small><%= item.time %></small>
+	<br />
+	<div><%= item.post %></div>
+	<% if(item.img){ %>
+	<img src="<%= item.img %>" >
+	<% } %>
+</div>
+<% }) %>
+</div>
+<%- include foot.html %>
