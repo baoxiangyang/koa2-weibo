@@ -12,6 +12,7 @@ const Koa = require('koa'),
 	post = require('./routes/post'),
 	koaStatic = require('koa-static'),
 	multer = require('koa-multer'),
+	mount = require('koa-mount'),
 	upload = multer({ dest: 'uploads/' });
 import session from 'koa-session2';
 import RedisStore from './common/store.js';
@@ -19,13 +20,6 @@ import RedisStore from './common/store.js';
 app.use(convert(bodyparser));
 app.use(convert(json()));
 // app.use(convert(logger()));
-app.use(async (ctx, next)=>{
-	let reg = /^\/public/;
-	if(reg.test(ctx.path)){
-		ctx.path = ctx.url.replace(reg, '');
-	}
-	await next();
-});
 // logger
 app.use(async (ctx, next) => {
   const start = new Date();
@@ -33,7 +27,7 @@ app.use(async (ctx, next) => {
   const ms = new Date() - start;
   console.log(`${ctx.method} ${ctx.status} ${ctx.url} - ${ms}ms`);
 });
-app.use(koaStatic(__dirname + '/public'));
+app.use(mount('/public', convert(koaStatic(__dirname + '/public'))));
 app.use(views(__dirname + '/views', {map: {html: 'ejs' }}));
 //session
 app.use(session({
